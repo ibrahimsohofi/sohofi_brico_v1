@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f6f2ea" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Sohofi Brico — Quincaillerie & droguerie en ligne</title>
+    <meta
+      name="description"
+      content="Quincaillerie, droguerie, sanitaire, peinture, outillage et électricité. Paiement à la livraison partout au Maroc."
+    />
+    <script>
+      // Pre-paint: apply the persisted language before React mounts (no LTR→RTL flash).
+      (function () {
+        try {
+          var lang = localStorage.getItem("sb-lang");
+          if (lang !== "ar" && lang !== "fr") lang = "fr";
+          var root = document.documentElement;
+          root.lang = lang;
+          root.dir = lang === "ar" ? "rtl" : "ltr";
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

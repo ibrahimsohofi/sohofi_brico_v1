@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/*  Tokens                                                            */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    /* Surfaces: warm "plaster" neutrals */
+    --bg: 246 242 234;
+    --surface: 255 253 249;
+    --surface-sunken: 239 233 222;
+    --line: 226 217 200;
+    --line-strong: 201 188 165;
+
+    /* Ink: teal-black, never pure #000 */
+    --ink: 19 34 31;
+    --ink-muted: 74 87 83;
+    --ink-subtle: 118 127 122;
+
+    /* Brand: Droguerie teal (DB category #0f766e) */
+    --primary: 15 118 110;
+    --primary-hover: 13 90 84;
+    --primary-soft: 214 242 237;
+    --primary-fg: 255 255 255;
+
+    /* Action: Peinture orange (DB category #ea580c) - CTAs only */
+    --accent: 234 88 12;
+    --accent-hover: 194 65 12;
+    --accent-soft: 255 237 213;
+    --accent-fg: 255 255 255;
+
+    /* Signals */
+    --success: 21 128 61;
+    --success-soft: 220 252 231;
+    --warning: 180 83 9; /* amber-700: readable on light bg */
+    --warning-soft: 254 243 199;
+    --danger: 220 38 38; /* Outillage red (DB #dc2626) */
+    --danger-soft: 254 226 226;
+    --promo: 234 179 8; /* Électricité yellow (DB #eab308) */
+    --promo-fg: 19 34 31;
+
+    --ring: 234 88 12;
+    --shadow: 19 34 31;
+
+    /* Typography stacks: switched per language below */
+    --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+    color-scheme: light;
+  }
+
+  /* Arabic: Cairo for headings, Tajawal for running text.
+     Both ship Latin glyphs, so SKUs and prices stay consistent. */
+  :root[lang="ar"] {
+    --font-display: "Cairo Variable", "Bricolage Grotesque Variable", sans-serif;
+    --font-body: "Tajawal", "Cairo Variable", "Instrument Sans Variable", sans-serif;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  :root[lang="ar"] body {
+    line-height: 1.75; /* Arabic needs more vertical room */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    font-variation-settings: "wdth" 90;
+  }
+
+  /* Arabic must never be letter-spaced: it breaks joined glyphs */
+  :root[lang="ar"] [class*="tracking-"],
+  :root[lang="ar"] .caps {
+    letter-spacing: 0 !important;
+  }
+
+  ::selection {
+    background: rgb(var(--promo) / 0.6);
+    color: rgb(var(--ink));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Component-level helpers                                           */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* Uppercase micro label (mono). Disabled automatically in Arabic. */
+  .caps {
+    @apply font-mono text-2xs uppercase;
+    letter-spacing: 0.12em;
+  }
+  :root[lang="ar"] .caps {
+    @apply font-sans text-xs normal-case;
+  }
+
+  /* Skeleton shimmer: sweeps in reading direction */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: rgb(var(--surface-sunken));
+    isolation: isolate;
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.65) 50%,
+      transparent
+    );
+    animation: sb-shimmer 1.4s ease-in-out infinite;
+  }
+  [dir="rtl"] .skeleton::after {
+    animation-name: sb-shimmer-rtl;
+  }
+
+  /* Blueprint grid: workshop drawing paper */
+  .bg-blueprint {
+    background-image:
+      linear-gradient(rgb(var(--ink) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--ink) / 0.06) 1px, transparent 1px),
+      linear-gradient(rgb(var(--ink) / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--ink) / 0.03) 1px, transparent 1px);
+    background-size:
+      80px 80px,
+      80px 80px,
+      16px 16px,
+      16px 16px;
+  }
+  .bg-blueprint-dark {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.08) 1px, transparent 1px),
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size:
+      80px 80px,
+      80px 80px,
+      16px 16px,
+      16px 16px;
+  }
+
+  /* Tape-measure ruler: major tick every 10 units */
+  .ruler {
+    height: 14px;
+    background-image:
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 50px),
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 25px),
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 5px);
+    background-size:
+      100% 14px,
+      100% 9px,
+      100% 5px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    opacity: 0.45;
+  }
+
+  /* Hazard stripes for announcements and warnings */
+  .hazard {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgb(var(--promo)) 0 12px,
+      rgb(var(--ink)) 12px 24px
+    );
+  }
+
+  /* Hole-punched shelf label */
+  .tag-punch {
+    position: relative;
+  }
+  .tag-punch::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 8px;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-radius: 9999px;
+    background: rgb(var(--bg));
+    box-shadow: inset 0 1px 1px rgb(var(--ink) / 0.35);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                         */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  /* Directional icons (arrows, chevrons) flip in RTL */
+  [dir="rtl"] .flip-rtl {
+    transform: scaleX(-1);
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes sb-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes sb-shimmer-rtl {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

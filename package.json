@@ -1,0 +1,36 @@
+{
+  "name": "sohofibrico",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "baseline-browser-mapping": "^2.9.8",
+    "caniuse-lite": "^1.0.30001760",
+    "concurrently": "^9.2.1",
+    "lodash": "^4.17.21"
+  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd products_manager && bun run dev\" \"cd sales_manager && bun run dev \"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibrahimsohofi/sohofibrico.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ibrahimsohofi/sohofibrico/issues"
+  },
+  "homepage": "https://github.com/ibrahimsohofi/sohofibrico#readme"
+}

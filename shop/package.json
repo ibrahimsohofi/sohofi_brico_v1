@@ -1,0 +1,53 @@
+{
+  "name": "sohofibrico-shop",
+  "private": true,
+  "version": "0.1.0",
+  "description": "SohofiBrico public storefront (FR / AR)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5175",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 5175",
+    "lint": "biome lint --write ./src && biome format --write ./src",
+    "format": "biome format --write ./src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/cairo": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/tajawal": "^5.3.0",
+    "@hookform/resolvers": "^5.9.2",
+    "@tanstack/react-query": "^5.104.4",
+    "axios": "^1.20.0",
+    "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^14.3.0",
+    "i18next": "^26.5.2",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "lucide-react": "^1.59.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^3.0.0",
+    "react-hook-form": "^7.90.0",
+    "react-hot-toast": "^2.6.1",
+    "react-i18next": "^17.1.0",
+    "react-router-dom": "^7.18.4",
+    "tailwind-merge": "^2.6.0",
+    "zod": "^4.6.7",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@vitejs/plugin-react": "^6.1.2",
+    "autoprefixer": "^10.6.1",
+    "jsdom": "^30.1.3",
+    "postcss": "^8.5.31",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6",
+    "vitest": "^5.0.5"
+  }
+}
